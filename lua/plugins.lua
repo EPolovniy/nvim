@@ -41,6 +41,7 @@ local function init()
   -- Themes
   use {'bluz71/vim-nightfly-guicolors'}
   use {'folke/tokyonight.nvim'}
+  use {'ellisonleao/gruvbox.nvim'}
 
   -- Treesitter
   use {'nvim-treesitter/nvim-treesitter', config = "require('plugins.treesitter')"}
