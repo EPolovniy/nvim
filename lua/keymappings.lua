@@ -2,10 +2,10 @@ local keymap = vim.keymap.set
 local silent = { silent = true }
 
 -- Better window movement
-keymap("n", "<C-h>", "<C-w>h", silent)
-keymap("n", "<C-j>", "<C-w>j", silent)
-keymap("n", "<C-k>", "<C-w>k", silent)
-keymap("n", "<C-l>", "<C-w>l", silent)
+keymap("n", "<Leader>h", "<C-w>h", silent)
+keymap("n", "<Leader>j", "<C-w>j", silent)
+keymap("n", "<Leader>k", "<C-w>k", silent)
+keymap("n", "<Leader>l", "<C-w>l", silent)
 
 -- Move selected line / block of text in visual mode
 keymap("x", "K", ":move '<-2<CR>gv-gv", silent)
@@ -15,9 +15,12 @@ keymap("x", "J", ":move '>+1<CR>gv-gv", silent)
 keymap("v", "<", "<gv", silent)
 keymap("v", ">", ">gv", silent)
 
--- Save file by CTRL-S
-keymap("n", "<C-s>", ":w<CR>", silent)
-keymap("i", "<C-s>", "<ESC> :w<CR>", silent)
+-- Split
+keymap("n", "<Leader>v", ":split<CR>", silent)
+keymap("n", "<Leader>V", ":vsplit<CR>", silent)
+
+-- Save file
+keymap("n", "<Leader>w", ":w<CR>", silent)
 
 -- Telescope
 keymap("n", "<C-p>", "<CMD>lua require('plugins.telescope').project_files()<CR>")
@@ -39,7 +42,7 @@ keymap("n", "<Tab>", ":BufferNext<CR>", silent)
 keymap("n", "gn", ":bn<CR>", silent)
 keymap("n", "<S-Tab>", ":BufferPrevious<CR>", silent)
 keymap("n", "gp", ":bp<CR>", silent)
-keymap("n", "<S-q>", ":BufferClose<CR>", silent)
+keymap("n", "<Leader>q", ":BufferClose<CR>", silent)
 
 -- Move between barbar buffers
 keymap("n", "<Space>1", ":BufferGoto 1<CR>", silent)
@@ -61,14 +64,15 @@ keymap("n", "<A-7>", ":BufferGoto 7<CR>", silent)
 keymap("n", "<A-8>", ":BufferGoto 8<CR>", silent)
 keymap("n", "<A-9>", ":BufferGoto 9<CR>", silent)
 
--- Don't yank on delete char
-keymap("n", "x", '"_x', silent)
-keymap("n", "X", '"_X', silent)
-keymap("v", "x", '"_x', silent)
-keymap("v", "X", '"_X', silent)
-
 -- Don't yank on visual paste
 keymap("v", "p", '"_dP', silent)
+
+-- Chanhe and delete text
+keymap("n", "c", '"_c', { noremap = true, silent = true })
+keymap("v", "c", '"_c', { noremap = true, silent = true })
+keymap("n", "d", '"_d', { noremap = true, silent = true })
+keymap("v", "d", '"_d', { noremap = true, silent = true })
+
 
 -- Avoid issues because of remapping <c-a> and <c-x> below
 vim.cmd [[
@@ -90,6 +94,9 @@ keymap("x", "ga", "<Plug>(EasyAlign)", silent)
 -- Manually invoke speeddating in case switch.vim didn't work
 keymap("n", "<C-a>", ":if !switch#Switch() <bar> call speeddating#increment(v:count1) <bar> endif<CR>", silent)
 keymap("n", "<C-x>", ":if !switch#Switch({'reverse': 1}) <bar> call speeddating#increment(-v:count1) <bar> endif<CR>", silent)
+
+-- update init.lua
+keymap("n", "<leader><CR>", ":so $MYVIMRC<CR>", silent)
 
 -- Open links under cursor in browser with gx
 if vim.fn.has('macunix') == 1 then
