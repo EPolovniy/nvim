@@ -12,10 +12,17 @@ vim.g.nightflyCursorColor         = 1
 vim.g.nightflyUnderlineMatchParen = 0
 vim.g.nightflyNormalFloat         = 1
 
+-- Gruvbox config
+vim.g.gruvbox_transparent_bg      = 1
+
 vim.cmd('colorscheme ' .. EcoVim.colorscheme)
 
 -- Cursor line
 vim.highlight.create('CursorLineNR', { guifg = "Yellow", ctermfg = "Yellow", guibg = "None", cterm = "bold" }, false);
+
+if EcoVim.colorscheme == 'gruvbox' then
+    vim.highlight.create('Normal', { guibg = "None", guifg = "None" }, false);
+end
 
 if EcoVim.colorscheme == 'tokyonight' then
   vim.highlight.link('LineNr', 'Comment', true)
