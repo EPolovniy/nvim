@@ -33,7 +33,6 @@ if null_ls_ok then
     sources = {
       null_ls.builtins.formatting.prettier.with { extra_args = { "--trailing-comma all" } },
       null_ls.builtins.diagnostics.eslint_d,
-      null_ls.builtins.codeAction.eslint_d
     }
   })
 end
