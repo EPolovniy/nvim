@@ -75,10 +75,10 @@ keymap("v", "d", '"_d', { noremap = true, silent = true })
 
 
 -- Avoid issues because of remapping <c-a> and <c-x> below
-vim.cmd [[
-  nnoremap <Plug>SpeedDatingFallbackUp <c-a>
-  nnoremap <Plug>SpeedDatingFallbackDown <c-x>
-]]
+-- vim.cmd [[
+--  nnoremap <Plug>SpeedDatingFallbackUp <c-a>
+--  nnoremap <Plug>SpeedDatingFallbackDown <c-x>
+-- ]]
 
 -- Quickfix
 keymap("n", "<Space>,", ":cp<CR>", silent)
@@ -92,8 +92,8 @@ keymap("n", "ga", "<Plug>(EasyAlign)", silent)
 keymap("x", "ga", "<Plug>(EasyAlign)", silent)
 
 -- Manually invoke speeddating in case switch.vim didn't work
-keymap("n", "<C-a>", ":if !switch#Switch() <bar> call speeddating#increment(v:count1) <bar> endif<CR>", silent)
-keymap("n", "<C-x>", ":if !switch#Switch({'reverse': 1}) <bar> call speeddating#increment(-v:count1) <bar> endif<CR>", silent)
+-- keymap("n", "<C-a>", ":if !switch#Switch() <bar> call speeddating#increment(v:count1) <bar> endif<CR>", silent)
+-- keymap("n", "<C-x>", ":if !switch#Switch({'reverse': 1}) <bar> call speeddating#increment(-v:count1) <bar> endif<CR>", silent)
 
 -- update init.lua
 keymap("n", "<leader><CR>", ":so $MYVIMRC<CR>", silent)

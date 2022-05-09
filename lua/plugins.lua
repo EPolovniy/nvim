@@ -44,6 +44,8 @@ return require('packer').startup({
 
     -- LSP Base
     use { 'neovim/nvim-lspconfig' }
+    use { 'jose-elias-alvarez/null-ls.nvim' }
+
 
     -- LSP Cmp
     use { 'hrsh7th/nvim-cmp', event = 'InsertEnter', config = "require('plugins.cmp')" }
