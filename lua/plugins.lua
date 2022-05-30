@@ -30,7 +30,7 @@ return require('packer').startup({
     use { 'RRethy/nvim-treesitter-textsubjects', after = { 'nvim-treesitter' } }
     use { 'm-demare/hlargs.nvim', config = function() require('hlargs').setup() end }
 
-    -- Telescope
+    -- Navigating (Telescope/Tree/Refactor)
     use { 'nvim-telescope/telescope.nvim',
       config = "require('plugins.telescope')",
       requires = {
@@ -41,8 +41,12 @@ return require('packer').startup({
     }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use { 'cljoly/telescope-repo.nvim' }
+    use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+    use { 'nvim-pack/nvim-spectre' }
+    use { 'kyazdani42/nvim-tree.lua', config = "require('plugins.tree')" }
 
     -- LSP Base
+    use { 'williamboman/nvim-lsp-installer' }
     use { 'neovim/nvim-lspconfig' }
     use { 'jose-elias-alvarez/null-ls.nvim' }
 
@@ -60,12 +64,11 @@ return require('packer').startup({
     use { 'saadparwaiz1/cmp_luasnip', after = 'cmp-npm' }
 
     -- LSP Addons
-    use { 'williamboman/nvim-lsp-installer', event = 'BufEnter', after = 'cmp-nvim-lsp' }
     use { 'stevearc/dressing.nvim', requires = 'MunifTanjim/nui.nvim', config = "require('plugins.dressing')" }
     use { 'onsails/lspkind-nvim' }
     use { 'folke/lsp-trouble.nvim', config = "require('plugins.trouble')" }
     use { 'nvim-lua/popup.nvim' }
-    use { 'SmiteshP/nvim-gps', config = "require('plugins.gps')", after = 'nvim-treesitter' }
+    use { 'ChristianChiarulli/nvim-gps', branch = 'text_hl', config = "require('plugins.gps')", after = 'nvim-treesitter' }
     use { 'jose-elias-alvarez/typescript.nvim' }
 
     -- General
@@ -86,32 +89,22 @@ return require('packer').startup({
     use { 'folke/twilight.nvim', config = function() require("twilight").setup {} end, disable = not EcoVim.plugins.zen.enabled }
     use { 'ggandor/lightspeed.nvim' }
     use { 'folke/which-key.nvim', config = "require('plugins.which-key')", event = "BufWinEnter" }
-    use { 'ecosse3/galaxyline.nvim', after = 'nvim-gps', config = "require('plugins.galaxyline')" }
+    use { 'ecosse3/galaxyline.nvim', after = 'nvim-gps', config = "require('plugins.galaxyline')", event = "BufWinEnter" }
     use { 'romgrk/barbar.nvim', config = "require('plugins.barbar')" }
     use { 'antoinemadec/FixCursorHold.nvim' } -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
     use { 'rcarriga/nvim-notify' }
-    use { 'vuki656/package-info.nvim', disable = not EcoVim.plugins.package_info.enabled }
-    use { 'iamcco/markdown-preview.nvim',
-      run = 'cd app && npm install',
-      setup = function()
-        vim.g.mkdp_filetypes = { 'markdown' }
-      end,
-      ft = { 'markdown' }
-    }
+    use { 'vuki656/package-info.nvim', event = "BufEnter package.json", config = "require('plugins.package-info')" }
+    use { 'iamcco/markdown-preview.nvim', run = function() vim.fn["mkdp#util#install"]() end }
     use { 'declancm/cinnamon.nvim', config = "require('plugins.cinnamon')" }
-    use { 'nvim-pack/nvim-spectre' }
+    use { 'airblade/vim-rooter', setup = function() vim.g.rooter_patterns = EcoVim.plugins.rooter.patterns end }
 
     -- Snippets & Language & Syntax
     use { 'windwp/nvim-autopairs', after = { 'nvim-treesitter', 'nvim-cmp' }, config = "require('plugins.autopairs')" }
     use { 'p00f/nvim-ts-rainbow', after = { 'nvim-treesitter' } }
     use { 'mattn/emmet-vim' }
     use { 'lukas-reineke/indent-blankline.nvim', config = "require('plugins.indent')" }
-    use { 'norcalli/nvim-colorizer.lua', config = "require('plugins.colorizer')" }
+    use { 'NvChad/nvim-colorizer.lua', config = "require('plugins.colorizer')" }
     use { 'L3MON4D3/LuaSnip', requires = { 'rafamadriz/friendly-snippets' }, after = 'cmp_luasnip' }
-
-    -- Nvim Tree / Rooter
-    use { 'kyazdani42/nvim-tree.lua', config = "require('plugins.tree')" }
-    use { 'airblade/vim-rooter', setup = function() vim.g.rooter_patterns = EcoVim.plugins.rooter.patterns end }
 
     -- Git
     use { 'lewis6991/gitsigns.nvim',

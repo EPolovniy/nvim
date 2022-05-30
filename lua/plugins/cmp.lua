@@ -1,6 +1,10 @@
 -- Requires
 local lspkind = require('lspkind')
-local tabnine = require('cmp_tabnine.config')
+
+local cmp_tabnine_status_ok, tabnine = pcall(require, "cmp_tabnine.config")
+if not cmp_tabnine_status_ok then
+  return
+end
 
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
@@ -22,16 +26,16 @@ end
 
 -- Setup
 local source_mapping = {
-  buffer      = EcoVim.icons.buffer .. '[BUF]',
-  calc        = EcoVim.icons.calculator,
+  npm         = EcoVim.icons.terminal .. 'NPM',
   cmp_tabnine = EcoVim.icons.light,
-  luasnip     = EcoVim.icons.snippet,
-  npm         = EcoVim.icons.terminal .. '[NPM]',
-  nvim_lsp    = EcoVim.icons.paragraph .. '[LSP]',
+  nvim_lsp    = EcoVim.icons.paragraph .. 'LSP',
+  buffer      = EcoVim.icons.buffer .. 'BUF',
   nvim_lua    = EcoVim.icons.bomb,
+  luasnip     = EcoVim.icons.snippet .. 'SNP',
+  calc        = EcoVim.icons.calculator,
   path        = EcoVim.icons.folderOpen2,
   treesitter  = EcoVim.icons.tree,
-  zsh         = EcoVim.icons.terminal .. '[ZSH]',
+  zsh         = EcoVim.icons.terminal .. 'ZSH',
 }
 
 local buffer_option = {
@@ -92,6 +96,28 @@ cmp.setup {
       "i",
       "s",
     }),
+    ["<C-l>"] = cmp.mapping(function(fallback)
+      if luasnip.expandable() then
+        luasnip.expand()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
+    ["<C-h>"] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, {
+      "i",
+      "s",
+    }),
   }),
 
   formatting = {
@@ -102,7 +128,9 @@ cmp.setup {
 
       if entry.source.name == 'cmp_tabnine' then
         if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
-          menu = menu .. '[' .. entry.completion_item.data.detail .. ']'
+          menu = menu .. entry.completion_item.data.detail
+        else
+          menu = menu .. 'TBN'
         end
       end
 

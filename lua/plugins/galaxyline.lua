@@ -3,9 +3,9 @@
 
 local gl = require('galaxyline')
 local condition = require('galaxyline.condition')
-local gps = require('nvim-gps')
 local utils = require('utils')
 local tokyonight_colors = require("tokyonight.colors").setup({})
+local package_info_present, package = pcall(require, 'package-info')
 
 -- Configuration {{{1
 
@@ -392,17 +392,17 @@ table.insert(gls.left, {
 -- }}}3
 
 -- GPS {{{3
-table.insert(gls.left, {
-    nvimGPS = {
-      provider = function()
-        return gps.get_location()
-      end,
-      condition = function()
-        return gps.is_available() and #gps.get_location() > 0
-      end,
-      highlight = {colors.gpstext, colors.bg}
-    }
-})
+-- table.insert(gls.left, {
+--     nvimGPS = {
+--       provider = function()
+--         return gps.get_location()
+--       end,
+--       condition = function()
+--         return gps.is_available() and #gps.get_location() > 0
+--       end,
+--       highlight = {colors.gpstext, colors.bg}
+--     }
+-- })
 -- }}}3
 
 -- }}}2
@@ -411,6 +411,16 @@ table.insert(gls.left, {
 
 -- Right {{{1
 gls.right = {}
+
+if package_info_present then
+  table.insert(gls.right, {
+    PackageInfoStatus = {
+      provider = function()
+        return package.get_status() .. " "
+      end,
+    },
+  })
+end
 
 -- Type {{{2
 table.insert(gls.right, {

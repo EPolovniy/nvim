@@ -1,9 +1,9 @@
 # Ecovim: Frontend Neovim Config
 
-[![Last commit](https://img.shields.io/github/last-commit/ecosse3/nvim)](https://github.com/ecosse3/nvim/commits/master)
-![Stars](https://img.shields.io/github/stars/ecosse3/nvim?label=%E2%AD%90%20Stars)
-![License](https://img.shields.io/github/license/ecosse3/nvim)
-![Follow](https://img.shields.io/github/followers/ecosse3?label=Please%20follow%20%20to%20support%20my%20work&style=social)
+[![Last commit](https://img.shields.io/github/last-commit/ecosse3/nvim?style=for-the-badge)](https://github.com/ecosse3/nvim/commits/master)
+![Stars](https://img.shields.io/github/stars/ecosse3/nvim?style=for-the-badge)
+![License](https://img.shields.io/github/license/ecosse3/nvim?style=for-the-badge)
+![Neovim Version](https://img.shields.io/badge/For%20Neovim-0.7-yellowgreen?style=for-the-badge&logo=neovim&logoColor=d8abbb&color=d8abbb)
 
 ### A non-minimal Neovim config built to work most efficiently with Frontend Development.
 
@@ -63,7 +63,6 @@ Git Side Blame
 
 ## Installation
 
-Make sure to use newest Neovim version (0.6) or even nightly.
 Copy it into your terminal:
 
 ```bash
@@ -73,7 +72,7 @@ bash <(curl -s https://raw.githubusercontent.com/ecosse3/nvim/master/.install/ru
 After install configuration:
 
 1. Treesitter Languages are not installed by default.\
-Make sure to run `:TSInstall <lang>` or `:TSInstall maintained` after first run.
+Make sure to run `:TSInstall <lang>` for any language you want to install.
 2. LSP servers are enabled by default. You can enable more servers in lua/lsp/setup.lua just by adding standard lspconfig.<server>.setup function or by creating your own file and requiring in init.lua.
 If server is not installed, it will be installed automatically.
 You can check installed LSP servers by :LspInstallInfo.

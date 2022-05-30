@@ -119,12 +119,8 @@ local mappings = {
     d = { '<cmd>TroubleToggle<CR>',                      'local diagnostics' },
     D = { '<cmd>Telescope diagnostics<CR>',              'workspace diagnostics' },
     f = { 'format' },
-    i = { '<cmd>TSLspImportAll<CR>',                     'import all'},
     l = { 'line diagnostics' },
-    o = { '<cmd>TSLspOrganize<CR>',                      'organize imports'},
-    q = { '<cmd>TSLspFixCurrent<CR>',                    'quick fix' },
     r = { 'rename' },
-    s = { '<cmd>Telescope symbols<CR>',                  'symbols' },
     t = { '<cmd>LspToggleAutoFormat<CR>',                'toggle format on save' },
   },
 
@@ -214,6 +210,49 @@ local function attach_markdown(bufnr)
   })
 end
 
+local function attach_typescript(bufnr)
+  wk.register({
+    c = {
+      name = "LSP",
+      F = { '<cmd>TypescriptFixAll<CR>',                   'fix all' },
+      i = { '<cmd>TypescriptAddMissingImports<CR>',        'import all'},
+      o = { '<cmd>TypescriptOrganizeImports<CR>',          'organize imports'},
+      u = { '<cmd>TypescriptRemoveUnused<CR>',             'remove unused' },
+    }
+  }, {
+    buffer = bufnr ,
+    mode = "n", -- NORMAL mode
+    prefix = "<leader>",
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = false, -- use `nowait` when creating keymaps
+  })
+end
+
+local function attach_npm(bufnr)
+  wk.register({
+    n = {
+      name = "NPM",
+      c = { '<cmd>lua require("package-info").change_version()<CR>', 'change version' },
+      d = { '<cmd>lua require("package-info").delete()<CR>',         'delete package' },
+      h = { "<cmd>lua require('package-info').hide()<CR>",           'hide'},
+      i = { '<cmd>lua require("package-info").install()<CR>',        'install new package' },
+      r = { '<cmd>lua require("package-info").reinstall()<CR>',      'reinstall dependencies' },
+      s = { '<cmd>lua require("package-info").show()<CR>',           'show' },
+      u = { '<cmd>lua require("package-info").update()<CR>',         'update package'},
+    }
+  }, {
+    buffer = bufnr ,
+    mode = "n", -- NORMAL mode
+    prefix = "<leader>",
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = false, -- use `nowait` when creating keymaps
+  })
+end
+
 return {
-  attach_markdown = attach_markdown
+  attach_markdown = attach_markdown,
+  attach_typescript = attach_typescript,
+  attach_npm = attach_npm
 }
