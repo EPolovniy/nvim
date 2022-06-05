@@ -1,6 +1,7 @@
 -- Setup installer & lsp configs
 local typescript_ok, typescript = pcall(require, 'typescript')
 local lsp_installer_ok, lsp_installer = pcall(require, 'nvim-lsp-installer')
+local null_ls_ok, null_ls = pcall(require, 'null-ls')
 
 if not lsp_installer_ok then
   return
@@ -30,6 +31,16 @@ if cmp_nvim_lsp_ok then
 end
 
 -- Order matters
+
+-- Enabled null_ls
+if null_ls_ok then
+  null_ls.setup({
+    sources = {
+      null_ls.builtins.formatting.prettier.with { extra_args = { "--trailing-comma all" } },
+      null_ls.builtins.diagnostics.eslint_d,
+    }
+  })
+end
 
 -- It enables tsserver automatically so no need to call lspconfig.tsserver.setup
 if typescript_ok then
