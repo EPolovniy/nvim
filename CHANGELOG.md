@@ -2,6 +2,64 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/ecosse3/nvim/compare/v1.8.2...v1.9.0) (2022-06-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* **colorscheme:** please configure nightfly yourself if you use it
+
+### Features
+
+* **colorscheme:** add Ecovim colors & change telescope title & cursor line color ([31e01c2](https://github.com/ecosse3/nvim/commit/31e01c2897c7070a239b785d0a6fe4efed1531f1))
+* **icons:** add exit & fileRecent icon ([7820842](https://github.com/ecosse3/nvim/commit/78208427dd678ddda9c23e421ee24db096a1030f))
+* **mappings:** attach zen mapping to which-key if enabled ([aeba8ac](https://github.com/ecosse3/nvim/commit/aeba8ac1cbae54b6548482385ea0ebd7ee2f524e))
+* **mappings:** refactor which key & add visual mode mappings ([156ed23](https://github.com/ecosse3/nvim/commit/156ed231c8ba4bf6b6f3581c7bddd6b9d1ba4b94))
+* **plugins:** <ESC> to close telescope even in insert mode & <C-q> to smart send to qflist and open it ([585a10a](https://github.com/ecosse3/nvim/commit/585a10a66b978ef88e0a78a722345ca1432eccde))
+* **plugins:** add comment box plugin ([184367a](https://github.com/ecosse3/nvim/commit/184367a9eb1297817446890a5fdf62c5bdb18b06))
+* **plugins:** improve zen by disabling gitsigns, blanklines, relativenumber & hlards when is active ([cd62efe](https://github.com/ecosse3/nvim/commit/cd62efe2c06d26417dbb5dbc4e3f2f395da58d90))
+* **plugins:** new alpha look & custom config ([3f1da4a](https://github.com/ecosse3/nvim/commit/3f1da4aacd6311fffe8617652a210ed7c94db7e7))
+* **ui:** rounded borders in which key ([0ac8d2c](https://github.com/ecosse3/nvim/commit/0ac8d2c6b34bd142134537b31914c316c45db100))
+* **ui:** use packer.nvim in float bordered window ([4aeb00d](https://github.com/ecosse3/nvim/commit/4aeb00d2e8e82c4c9bbf73c703b0a73929ae992c))
+
+
+### Bug Fixes
+
+* **barbar:** remove pcall of nvim_web_devicons ([c3412e0](https://github.com/ecosse3/nvim/commit/c3412e0105519b04224dcf18eef9ba69023e2160))
+* **cmp:** limit item count for luasnip & buffer ([918ddc4](https://github.com/ecosse3/nvim/commit/918ddc46abbc8d70a705c96b12bad77fd120bb00))
+* **lua:** add packer_plugins to globals ([ed470d0](https://github.com/ecosse3/nvim/commit/ed470d06edecde51f7510bd0d0dd425d98494682))
+* **plugins:** autosave only in session ([256ba84](https://github.com/ecosse3/nvim/commit/256ba840a0832a6475947d2e94a179d18ef00a17))
+* **plugins:** reorder fzf-native ([5473aa2](https://github.com/ecosse3/nvim/commit/5473aa2f37972fa7e4e20d0093ac11da0d65976d))
+* **utils:** decrease relative path length ([e919dd9](https://github.com/ecosse3/nvim/commit/e919dd99824ca84559d4fc3c866b20372f6d95ad))
+* **which-key:** use the right command to open Alpha ([#53](https://github.com/ecosse3/nvim/issues/53)) ([76fb267](https://github.com/ecosse3/nvim/commit/76fb267f30c419af71365e62e0108c583964eac0))
+
+
+* **colorscheme:** drop support for nightfly colorscheme ([aa45d38](https://github.com/ecosse3/nvim/commit/aa45d38f501b55bd56722cd9ef2c1891510d6f5b))
+
+### [1.8.2](https://github.com/ecosse3/nvim/compare/v1.8.1...v1.8.2) (2022-06-01)
+
+
+### Bug Fixes
+
+* **#51:** replace dashboard with alpha.nvim & fix installation script ([#52](https://github.com/ecosse3/nvim/issues/52)) ([847f38d](https://github.com/ecosse3/nvim/commit/847f38dec48c2091948fa0dafdecadf4cc913b97)), closes [#51](https://github.com/ecosse3/nvim/issues/51) [#51](https://github.com/ecosse3/nvim/issues/51) [#51](https://github.com/ecosse3/nvim/issues/51)
+* **which-key:** mappings for alpha ([311537c](https://github.com/ecosse3/nvim/commit/311537cd25ed2550524fbc612ba5e594d1128c1b))
+
+### [1.8.1](https://github.com/ecosse3/nvim/compare/v1.8.0...v1.8.1) (2022-05-31)
+
+
+### Bug Fixes
+
+* **gps:** fix spacing in react hook icons in gps ([cd1a5fd](https://github.com/ecosse3/nvim/commit/cd1a5fd60579f44e854a9ab634228f3c7e5ed9dd))
+* **plugins:** set max_jobs to 50 to prevent freezing when syncing plugins ([f032bb3](https://github.com/ecosse3/nvim/commit/f032bb3c29cff97c849a7b1510a51a84bfb2e404))
+* **plugins:** update nvim-tree config ([585bc06](https://github.com/ecosse3/nvim/commit/585bc062ab5af81e3ace76220744787404dfac4e))
+* **snippets:** check if luasnip is loaded ([f023f4f](https://github.com/ecosse3/nvim/commit/f023f4fad57deb40a65a66786f3e9014bbec6241)), closes [#50](https://github.com/ecosse3/nvim/issues/50)
+* **winbar:** enable winbar only for neovim 0.8+ ([6eb9eac](https://github.com/ecosse3/nvim/commit/6eb9eac8605fb7904877e4d9514e3e7887735ae2)), closes [#50](https://github.com/ecosse3/nvim/issues/50)
+
+
+### Refactors
+
+* **icons:** change ' to " ([2f10dde](https://github.com/ecosse3/nvim/commit/2f10dde13294fc33d6a34f3a715f96f977bea9fe))
+
 ## [1.8.0](https://github.com/ecosse3/nvim/compare/v1.7.2...v1.8.0) (2022-05-23)
 
 

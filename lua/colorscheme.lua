@@ -1,4 +1,9 @@
-local tokyonight_colors = require("tokyonight.colors").setup({})
+local present, tk_colors = pcall(require, "tokyonight.colors")
+if not present then
+  return
+end
+
+local tokyonight_colors = tk_colors.setup({})
 
 -- Tokyonight config
 vim.g.tokyonight_style = "night"
@@ -7,42 +12,53 @@ vim.g.tokyonight_colors = {
   border = '#1A1B26';
 }
 
--- Nighyfly config
-vim.g.nightflyCursorColor         = 1
-vim.g.nightflyUnderlineMatchParen = 0
-vim.g.nightflyNormalFloat         = 1
-
--- Gruvbox config
-vim.g.gruvbox_transparent_bg      = 1
-
 vim.cmd('colorscheme ' .. EcoVim.colorscheme)
 
--- Cursor line
-vim.highlight.create('CursorLineNR', { guifg = "Yellow", ctermfg = "Yellow", guibg = "None", cterm = "bold" }, false);
+-- Ecovim Colors
+vim.highlight.create('EcovimPrimary', { guifg = "#488DFF" }, false);
+vim.highlight.create('EcovimSecondary', { guifg = "#FFA630" }, false);
+
+vim.highlight.create('EcovimPrimaryBold', { gui = "bold", guifg = "#488DFF" }, false);
+vim.highlight.create('EcovimSecondaryBold', { gui = "bold", guifg = "#FFA630" }, false);
+
+vim.highlight.create('EcovimHeader', { gui = "bold", guifg = "#488DFF" }, false);
+vim.highlight.create('EcovimHeaderInfo', { gui = "bold", guifg = "#FFA630" }, false);
+vim.highlight.create('EcovimFooter', { gui = "bold", guifg = "#FFA630" }, false);
+
 
 if EcoVim.colorscheme == 'gruvbox' then
     vim.highlight.create('Normal', { guibg = "None", guifg = "None" }, false);
 end
 
 if EcoVim.colorscheme == 'tokyonight' then
+  -- Lines
+  vim.highlight.link('CursorLineNR', 'EcovimSecondary', true)
   vim.highlight.link('LineNr', 'Comment', true)
+
+  -- Floats/Windows
   vim.highlight.create('NormalFloat', { guibg = "None", guifg = "None" }, false);
   vim.highlight.create('FloatBorder', { guibg = "None" }, false);
   vim.highlight.create('WhichKeyFloat', { guibg = "None" }, false);
   vim.highlight.create('BufferTabpageFill', { guifg = "None" }, false);
   vim.highlight.create('VertSplit', { guibg = "#16161e", guifg = "#16161e" }, false);
+
+  -- Telescope
+  vim.highlight.link('TelescopeTitle', 'EcovimSecondary', true);
   vim.highlight.create('TelescopeNormal', { guibg = "None", guifg = "None" }, false);
-  vim.highlight.create('TelescopeBorder', { guibg = "None", guifg = "None" }, false);
+  vim.highlight.create('TelescopeBorder', { guibg = "None" }, false);
   vim.highlight.link('TelescopeMatching', 'Constant', true);
+
+  -- Diagnostics
+
+  -- Misc
   vim.highlight.link('GitSignsCurrentLineBlame', 'Comment', true);
   vim.highlight.create('StatusLine', { guibg = "None" }, false);
   vim.highlight.create('StatusLineNC', { guibg = "None" }, false);
   vim.highlight.create('rainbowcol1', { guifg = tokyonight_colors.blue, ctermfg = 9 }, false);
   vim.highlight.create('Boolean', { guifg = "#F7768E" }, false);
-  vim.highlight.create('BufferOffset', { gui = 'bold', guifg = "None", guibg = "#16161e" }, false);
+  vim.highlight.link('BufferOffset', 'EcovimSecondary', true);
 
   -- Completion Menu Colors
-
   local highlights = {
     CmpItemAbbr            = { fg = tokyonight_colors.dark3, bg = "NONE" },
     CmpItemKindClass       = { fg = tokyonight_colors.orange             },
@@ -66,24 +82,4 @@ if EcoVim.colorscheme == 'tokyonight' then
   for group, hl in pairs(highlights) do
     vim.api.nvim_set_hl(0, group, hl)
   end
-end
-
-if EcoVim.colorscheme == 'nightfly' then
-  -- Errors
-  vim.highlight.create('LspDiagnosticsVirtualTextError', { guifg = "Red", ctermfg = "Red", gui = "bold" }, false);
-  vim.highlight.create('DiagnosticVirtualTextError', { guifg = "Red", ctermfg = "Red", gui = "bold" }, false);
-
-  -- Warnings
-  vim.highlight.create('LspDiagnosticsVirtualTextWarning', { guifg = "Yellow", ctermfg = "Yellow" }, false);
-  vim.highlight.create('DiagnosticVirtualTextWarn', { guifg = "Yellow", ctermfg = "Yellow" }, false);
-
-  -- Info & Hints
-  vim.highlight.create('DiagnosticVirtualTextInfo', { guifg = "White", ctermfg = "White" }, false);
-  vim.highlight.create('DiagnosticVirtualTextHint', { guifg = "White", ctermfg = "White" }, false);
-
-  -- Comment in italics
-  vim.highlight.create('Comment', { gui = "italic", cterm = "italic" }, false);
-
-  -- Change color of floating popup border
-  vim.highlight.link('FloatBorder', 'NightflyRed', true);
 end
