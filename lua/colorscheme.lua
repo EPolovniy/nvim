@@ -14,6 +14,11 @@ vim.g.tokyonight_colors = {
 
 vim.cmd('colorscheme ' .. EcoVim.colorscheme)
 
+
+-- Gruvbox config
+vim.g.gruvbox_transparent_bg      = 1
+
+
 -- Ecovim Colors
 vim.highlight.create('EcovimPrimary', { guifg = "#488DFF" }, false);
 vim.highlight.create('EcovimSecondary', { guifg = "#FFA630" }, false);
