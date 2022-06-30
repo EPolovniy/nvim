@@ -37,7 +37,6 @@ if null_ls_ok then
   null_ls.setup({
     sources = {
       null_ls.builtins.formatting.prettier.with { extra_args = { "--trailing-comma all" } },
-      null_ls.builtins.diagnostics.eslint_d,
     }
   })
 end
