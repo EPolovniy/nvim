@@ -19,12 +19,13 @@ vim.cmd('colorscheme ' .. EcoVim.colorscheme)
 
 
 -- Gruvbox config
-vim.g.gruvbox_transparent_bg      = 1
+vim.g.gruvbox_transparent_bg = 1
 
-
--- Ecovim Colors
-vim.highlight.create('EcovimPrimary', { guifg = "#488DFF" }, false);
-vim.highlight.create('EcovimSecondary', { guifg = "#FFA630" }, false);
+-- IF NIGHTLY
+if vim.fn.has("nvim-0.8") then
+  -- Ecovim Colors
+  vim.api.nvim_set_hl(0, 'EcovimPrimary', { fg = "#488DFF" });
+  vim.api.nvim_set_hl(0, 'EcovimSecondary', { fg = "#FFA630" });
 
   vim.api.nvim_set_hl(0, 'EcovimPrimaryBold', { bold = true, fg = "#488DFF" });
   vim.api.nvim_set_hl(0, 'EcovimSecondaryBold', { bold = true, fg = "#FFA630" });
@@ -33,20 +34,23 @@ vim.highlight.create('EcovimSecondary', { guifg = "#FFA630" }, false);
   vim.api.nvim_set_hl(0, 'EcovimHeaderInfo', { bold = true, fg = "#FFA630" });
   vim.api.nvim_set_hl(0, 'EcovimFooter', { bold = true, fg = "#FFA630" });
 
+  if EcoVim.colorscheme == 'gruvbox' then
+    vim.highlight.create('Normal', { guibg = "None", guifg = "None" }, false);
+  end
+
   -- Tokyonight Colorscheme Specific Config
   if EcoVim.colorscheme == 'tokyonight' then
     -- Lines
     vim.api.nvim_set_hl(0, 'CursorLineNR', { link = 'EcovimSecondary' })
     vim.api.nvim_set_hl(0, 'LineNr', { link = 'Comment' })
 
-if EcoVim.colorscheme == 'gruvbox' then
-    vim.highlight.create('Normal', { guibg = "None", guifg = "None" }, false);
-end
-
-if EcoVim.colorscheme == 'tokyonight' then
-  -- Lines
-  vim.highlight.link('CursorLineNR', 'EcovimSecondary', true)
-  vim.highlight.link('LineNr', 'Comment', true)
+    -- Floats/Windows
+    vim.api.nvim_set_hl(0, 'NormalFloat', { bg = "None", fg = "None" });
+    vim.api.nvim_set_hl(0, 'FloatBorder', { bg = "None", fg = "#488DFF" });
+    vim.api.nvim_set_hl(0, 'WhichKeyFloat', { bg = "None", fg = "#488DFF" });
+    vim.api.nvim_set_hl(0, 'BufferTabpageFill', { fg = "None" });
+    vim.api.nvim_set_hl(0, 'VertSplit', { bg = "#16161e", fg = "#16161e" });
+    vim.api.nvim_set_hl(0, 'BqfPreviewBorder', { link = 'FloatBorder' })
 
     -- Telescope
     vim.api.nvim_set_hl(0, 'TelescopeTitle', { link = 'EcovimSecondary' });
@@ -90,7 +94,7 @@ if EcoVim.colorscheme == 'tokyonight' then
     end
   end
 
--- ELSE
+  -- ELSE
 else
   -- Ecovim Colors
   vim.highlight.create('EcovimPrimary', { guifg = "#488DFF" }, false);
