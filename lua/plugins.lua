@@ -4,7 +4,8 @@ local compile_path = install_path .. "/plugin/packer_compiled.lua"
 local packer_bootstrap = nil
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+  packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    install_path })
 end
 
 return require('packer').startup({
@@ -43,9 +44,15 @@ return require('packer').startup({
     use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
     use { 'nvim-pack/nvim-spectre' }
     use { 'kyazdani42/nvim-tree.lua', config = "require('plugins.tree')" }
+    use { 'gbprod/stay-in-place.nvim',
+      config = function()
+        require('stay-in-place').setup({})
+      end
+    }
 
     -- LSP Base
-    use { 'williamboman/nvim-lsp-installer' }
+    use { 'williamboman/mason.nvim' }
+    use { 'williamboman/mason-lspconfig.nvim' }
     use { 'neovim/nvim-lspconfig' }
     use { 'jose-elias-alvarez/null-ls.nvim' }
 
@@ -59,7 +66,8 @@ return require('packer').startup({
     use { 'hrsh7th/cmp-cmdline', after = 'cmp-path' }
     use { 'hrsh7th/cmp-calc', after = 'cmp-cmdline' }
     use { 'tzachar/cmp-tabnine', run = './install.sh', requires = 'hrsh7th/nvim-cmp', after = 'cmp-calc' }
-    use { 'David-Kunz/cmp-npm', after = 'cmp-tabnine', requires = 'nvim-lua/plenary.nvim', config = "require('plugins.cmp-npm')" }
+    use { 'David-Kunz/cmp-npm', after = 'cmp-tabnine', requires = 'nvim-lua/plenary.nvim',
+      config = "require('plugins.cmp-npm')" }
     use { 'saadparwaiz1/cmp_luasnip', after = 'cmp-npm' }
 
     -- LSP Addons
@@ -78,7 +86,6 @@ return require('packer').startup({
     use { 'akinsho/nvim-toggleterm.lua', branch = 'main', config = "require('plugins.toggleterm')" }
     use { 'tpope/vim-repeat' }
     use { 'tpope/vim-speeddating' }
-    use { 'tpope/vim-surround' }
     use { 'dhruvasagar/vim-table-mode' }
     use { 'mg979/vim-visual-multi' }
     use { 'junegunn/vim-easy-align' }
@@ -86,23 +93,27 @@ return require('packer').startup({
     use { 'nacro90/numb.nvim', config = "require('plugins.numb')" }
     use { 'folke/todo-comments.nvim', config = "require('plugins.todo-comments')" }
     use { 'folke/zen-mode.nvim', config = "require('plugins.zen')", disable = not EcoVim.plugins.zen.enabled }
-    use { 'folke/twilight.nvim', config = function() require("twilight").setup {} end, disable = not EcoVim.plugins.zen.enabled }
+    use { 'folke/twilight.nvim', config = function() require("twilight").setup {} end,
+      disable = not EcoVim.plugins.zen.enabled }
     use { 'ggandor/lightspeed.nvim' }
     use { 'folke/which-key.nvim', config = "require('plugins.which-key')", event = "BufWinEnter" }
     use { 'ecosse3/galaxyline.nvim', after = 'nvim-gps', config = "require('plugins.galaxyline')", event = "BufWinEnter" }
-    use { 'romgrk/barbar.nvim', requires = { 'kyazdani42/nvim-web-devicons' }, config = "require('plugins.barbar')" }
+    use { 'romgrk/barbar.nvim', branch = 'feat/wipeout-cmds', requires = { 'kyazdani42/nvim-web-devicons' },
+      config = "require('plugins.barbar')" }
     use { 'antoinemadec/FixCursorHold.nvim' } -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
     use { 'rcarriga/nvim-notify' }
     use { 'vuki656/package-info.nvim', event = "BufEnter package.json", config = "require('plugins.package-info')" }
-    use { 'iamcco/markdown-preview.nvim', run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" } }
+    use { 'iamcco/markdown-preview.nvim', run = "cd app && npm install",
+      setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" } }
     use { 'declancm/cinnamon.nvim', config = "require('plugins.cinnamon')" }
     use { 'airblade/vim-rooter', setup = function() vim.g.rooter_patterns = EcoVim.plugins.rooter.patterns end }
     use { 'Shatur/neovim-session-manager', config = "require('plugins.session-manager')" }
+    use { 'kylechui/nvim-surround', config = function() require("nvim-surround").setup({}) end }
+    use { 'sunjon/shade.nvim', config = function() require("shade").setup(); require("shade").toggle(); end }
 
     -- Snippets & Language & Syntax
     use { 'windwp/nvim-autopairs', after = { 'nvim-treesitter', 'nvim-cmp' }, config = "require('plugins.autopairs')" }
     use { 'p00f/nvim-ts-rainbow', after = { 'nvim-treesitter' } }
-    use { 'mattn/emmet-vim' }
     use { 'lukas-reineke/indent-blankline.nvim', config = "require('plugins.indent')" }
     use { 'NvChad/nvim-colorizer.lua', config = "require('plugins.colorizer')" }
     use { 'L3MON4D3/LuaSnip', requires = { 'rafamadriz/friendly-snippets' }, after = 'cmp_luasnip' }
@@ -110,11 +121,30 @@ return require('packer').startup({
     -- Git
     use { 'lewis6991/gitsigns.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
-      config = "require('plugins.gitsigns')",
+      config = "require('plugins.git.signs')",
       event = "BufRead"
     }
-    use { 'sindrets/diffview.nvim' }
-    use { 'akinsho/git-conflict.nvim', config = function() require('git-conflict').setup() end }
+    use { 'sindrets/diffview.nvim', config = "require('plugins.git.diffview')" }
+    use { 'akinsho/git-conflict.nvim', config = "require('plugins.git.conflict')" }
+    use { 'ThePrimeagen/git-worktree.nvim', config = "require('plugins.git.worktree')" }
+    use { 'kdheepak/lazygit.nvim' }
+
+    -- Testing
+    use {
+      'rcarriga/neotest',
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-treesitter/nvim-treesitter',
+        'antoinemadec/FixCursorHold.nvim',
+        'haydenmeade/neotest-jest'
+      },
+      config = "require('plugins.neotest')"
+    }
+
+    -- DAP
+    use { 'theHamsta/nvim-dap-virtual-text' }
+    use { 'rcarriga/nvim-dap-ui' }
+    use { 'mfussenegger/nvim-dap', config = "require('plugins.dap')" }
 
     if packer_bootstrap then
       require('packer').sync()

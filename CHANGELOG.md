@@ -2,6 +2,93 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/ecosse3/nvim/compare/v1.11.1...v2.0.0) (2022-07-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* **lsp:** Uninstall lsp-installer servers by :LspUninstallAll
+first
+
+### Features
+
+* **lsp:** move from lsp-installer to mason ([4f8f48e](https://github.com/ecosse3/nvim/commit/4f8f48e3545c4cf2025dde5c43eb5dc41e229046)), closes [#80](https://github.com/ecosse3/nvim/issues/80)
+* **plugins:** add stay-in-place plugin ([a80aa23](https://github.com/ecosse3/nvim/commit/a80aa2377436b5ed46a0c36db2952d62dbf3b481))
+* **plugins:** configure DAP and test with React.js ([de647d7](https://github.com/ecosse3/nvim/commit/de647d780c631feecc6bd3595ff9d7ab8d3a899a))
+
+
+### Bug Fixes
+
+* **install:** fix removing whole cache dir ([f951a95](https://github.com/ecosse3/nvim/commit/f951a9563783c4df8f70c74ec1d4095804350fae)), closes [#79](https://github.com/ecosse3/nvim/issues/79)
+
+### [1.11.1](https://github.com/ecosse3/nvim/compare/v1.11.0...v1.11.1) (2022-07-17)
+
+
+### Bug Fixes
+
+* **#75:** fix issues with installation by pcalling which-key ([#76](https://github.com/ecosse3/nvim/issues/76)) ([0b93557](https://github.com/ecosse3/nvim/commit/0b935574c12485ee92264bc2ad11ac7b3acac661)), closes [#75](https://github.com/ecosse3/nvim/issues/75) [#75](https://github.com/ecosse3/nvim/issues/75) [#75](https://github.com/ecosse3/nvim/issues/75)
+
+## [1.11.0](https://github.com/ecosse3/nvim/compare/v1.10.0...v1.11.0) (2022-07-16)
+
+
+### Features
+
+* **lsp:** create option to toggle inline messages ([69fb322](https://github.com/ecosse3/nvim/commit/69fb3224c958427771e8e578ca42f2aaedf15d88))
+* **plugins:** use nvim-surround instead of tpope/vim-surround ([e23cef4](https://github.com/ecosse3/nvim/commit/e23cef4dd9aa082e484ee480eb264bcaa106f091))
+
+
+### Bug Fixes
+
+* **colorscheme:** use new nvim set_hl api in newest neovim nightly and keep vim.highlight.create in 0.7 ([648981c](https://github.com/ecosse3/nvim/commit/648981c3eff5d6aa591fd9e3924cd338b117c68b))
+* **plugins:** do not attach zen in which-key in dashboard ([0a57006](https://github.com/ecosse3/nvim/commit/0a5700668459e4e0fe5922dece24f4a5b0019c59)), closes [#69](https://github.com/ecosse3/nvim/issues/69)
+* **plugins:** limit colorizer.lua filetypes ([ed8bec4](https://github.com/ecosse3/nvim/commit/ed8bec4deb71673d067b3a326439a4f6b1522ebe)), closes [#64](https://github.com/ecosse3/nvim/issues/64)
+* **settings:** set correct fillchars to not show ^ on newest nightly in statusbar ([d09c743](https://github.com/ecosse3/nvim/commit/d09c743ac16d83cd6f12c771e637fc57b67c7307))
+
+## [1.10.0](https://github.com/ecosse3/nvim/compare/v1.9.1...v1.10.0) (2022-06-21)
+
+
+### Features
+
+* **git:** use lazygit for all & buffer commits view for default keymaps ([df72edb](https://github.com/ecosse3/nvim/commit/df72edb4b3db268bb94145b9a91f366f857d4541))
+* **keymappings:** add mappings for case change in visual mode ([e546e3e](https://github.com/ecosse3/nvim/commit/e546e3ec45e9c1efbb224f843fda7d208521e44c))
+* **keymappings:** add spectre lazy keymappings ([a8562b4](https://github.com/ecosse3/nvim/commit/a8562b41cfbb59836879ac3db134a15cfe67a2bd))
+* **keymappings:** use cached list of telescope repo for speedup (needs additional config on macOS) ([6a9817b](https://github.com/ecosse3/nvim/commit/6a9817b8b1884176717e6e4bc1c13a84a8c1a47d))
+* **plugins:** add git-worktree plugin ([95313ce](https://github.com/ecosse3/nvim/commit/95313cef07e177236520affbe4e53c3a2df9eb6e))
+* **plugins:** add lazygit.nvim plugin because it works better with git worktree ([3b46c04](https://github.com/ecosse3/nvim/commit/3b46c042f6ad0a23297b7a66a054923f3064f8c9))
+* **plugins:** add neotest and jest support via <Leader>j ([8b0965a](https://github.com/ecosse3/nvim/commit/8b0965a129977d1b8b0d27112cd74182fe7c4d5e))
+* **plugins:** add notification after switching worktree ([f49a46e](https://github.com/ecosse3/nvim/commit/f49a46e8b69e6279d0cc1ec4379843c0f2d7b411))
+* **plugins:** enable zen by default ([e78129e](https://github.com/ecosse3/nvim/commit/e78129ef78968843be31e9e98d27bd1edc200d28))
+* **ui:** add rounded borders by default to LspInstallInfo floating window ([be3ef2d](https://github.com/ecosse3/nvim/commit/be3ef2da6626ebf573606468c1f28b39b4f43623))
+* **ui:** dotfiles picker, command history & search history in dropdown ([bc09a24](https://github.com/ecosse3/nvim/commit/bc09a240a3f17b8ee3fce0fa989262b3a4326df3))
+
+
+### Bug Fixes
+
+* **#62:** update typescript.nvim & remove server capabilities settings for tsserver ([1399d87](https://github.com/ecosse3/nvim/commit/1399d872edd35d89216515ccbe40741eb5ea5f27)), closes [#62](https://github.com/ecosse3/nvim/issues/62)
+* add missing comma ([359c58c](https://github.com/ecosse3/nvim/commit/359c58c85b1f4f96c6795d45e08144d486f16c35))
+* **blame:** add custom winbar to Git Blame to fix matching between lines issue ([80da821](https://github.com/ecosse3/nvim/commit/80da821f2b6b14d2e4a2427228839fe39564dfd0))
+* **colorscheme:** match quicklist border color to float border ([b0643f2](https://github.com/ecosse3/nvim/commit/b0643f23d6feb201a69583d1d4ced2b9e073ac89))
+* **keymappings:** conflicting keymaps ([f13cc0b](https://github.com/ecosse3/nvim/commit/f13cc0bf67fb4a0dab98f616294a826344432e3f))
+* **lsp:** limit tailwindcss filetypes ([d0d30c5](https://github.com/ecosse3/nvim/commit/d0d30c5fde70c34193a1d47735248b04a674bec3))
+* **plugins:** correct refreshing current file & close all buffers on worktree switch ([c4aae38](https://github.com/ecosse3/nvim/commit/c4aae3842f7381c48c1ff492511e08fd9defc357))
+* **plugins:** remove cinnamon animation on <C-o> & <C-i> ([2368acc](https://github.com/ecosse3/nvim/commit/2368acc34d447503efaed688f0ce168642e9cc06))
+* **plugins:** remove unnecessary todo-comments plugin require ([639c6b9](https://github.com/ecosse3/nvim/commit/639c6b93f635d9d060e09c1e5a61d8483afc3c3d))
+* **plugins:** toggleterm highlights & size ([c55c5e1](https://github.com/ecosse3/nvim/commit/c55c5e126fed5cedb4dda2da2f49d65dbe62255d))
+* **telescope:** wrap results in workspace diagnostics ([7e20d99](https://github.com/ecosse3/nvim/commit/7e20d99f3317e7aa34c126f36074d4802ec333fd))
+* **ui:** fix spacing between vertical pos and size in statusbar by shifting numbers ([23391ef](https://github.com/ecosse3/nvim/commit/23391ef3bfc51e887864be3b1aab11b0335eb761))
+* **ui:** vim.ui.select & vim.ui.input error when using nui backend with LSP rename/code actions ([7d081ff](https://github.com/ecosse3/nvim/commit/7d081ff673ebaa1f4f60400898ac8480bd4f347a))
+
+
+### Refactors
+
+* **plugins:** move all git plugins to git subdirectory inside plugins ([fd86430](https://github.com/ecosse3/nvim/commit/fd86430ccf770737804dd0d0398692a94e581402))
+
+## [1.9.1](https://github.com/ecosse3/nvim/compare/v1.9.0...v1.9.1) (2022-06-05)
+
+### Bug Fixes
+
+* **winbar:** pcall require winbar and check if loaded type is not boolean by first time ([#55](https://github.com/ecosse3/nvim/issues/55)) ([#58](https://github.com/ecosse3/nvim/issues/58)) ([edaca98](https://github.com/ecosse3/nvim/commit/edaca98290bd17707c35be163fe538bf3c9815e2))
+
 ## [1.9.0](https://github.com/ecosse3/nvim/compare/v1.8.2...v1.9.0) (2022-06-03)
 
 

@@ -1,4 +1,7 @@
-local wk = require "which-key"
+local present, wk = pcall(require, "which-key")
+if not present then
+  return
+end
 
 wk.setup {
   plugins = {
@@ -99,7 +102,7 @@ local normal_mode_mappings = {
   ["/"] = {
     name = "Ecovim",
     ["/"] = { '<cmd>Alpha<CR>',                                 'open dashboard' },
-    c = { ':e $MYVIMRC<CR>',                                    'open config' },
+    c = { '<cmd>e $MYVIMRC<CR>',                                    'open config' },
     i = { '<cmd>PackerInstall<CR>',                             'install plugins' },
     u = { '<cmd>PackerSync<CR>',                                'update plugins' },
     s = {
@@ -134,12 +137,12 @@ local normal_mode_mappings = {
   c = {
     name = "LSP",
     a = { 'code action' },
-    d = { '<cmd>TroubleToggle<CR>',                      'local diagnostics' },
-    D = { '<cmd>Telescope diagnostics<CR>',              'workspace diagnostics' },
+    d = { '<cmd>TroubleToggle<CR>',                           'local diagnostics' },
+    D = { '<cmd>Telescope diagnostics wrap_results=true<CR>', 'workspace diagnostics' },
     f = { 'format' },
     l = { 'line diagnostics' },
     r = { 'rename' },
-    t = { '<cmd>LspToggleAutoFormat<CR>',                'toggle format on save' },
+    t = { '<cmd>LspToggleAutoFormat<CR>',                     'toggle format on save' },
   },
 
   d = {
@@ -152,17 +155,17 @@ local normal_mode_mappings = {
     i = { 'step into' },
     o = { 'step over' },
     O = { 'step out' },
-    s = { 'scopes' },
+    t = { 'terminate' },
   },
 
   g = {
     name = "Git",
-    a = { '<cmd>!git add %:p<CR>',                                   'add current' },
-    A = { '<cmd>!git add .<CR>',                                     'add all' },
-    b = { '<cmd>lua require("blame").open()<CR>',                    'blame' },
-    B = { '<cmd>Telescope git_branches<CR>',                         'branches' },
-    d = { '<cmd>lua require("plugins.diffview").toggle()<CR>',       'diff file' },
-    g = { 'lazygit' },
+    a = { '<cmd>!git add %:p<CR>',                                 'add current' },
+    A = { '<cmd>!git add .<CR>',                                   'add all' },
+    b = { '<cmd>lua require("blame").open()<CR>',                  'blame' },
+    B = { '<cmd>Telescope git_branches<CR>',                       'branches' },
+    d = { '<cmd>lua require("plugins.git.diffview").toggle()<CR>', 'diff file' },
+    g = { '<cmd>LazyGit<CR>',                                      'lazygit' },
     h = {
       name = "Hunk",
       d = "diff hunk",
@@ -176,18 +179,25 @@ local normal_mode_mappings = {
     },
     l = {
       name = "Log",
-      a = "commits",
-      c = "buffer commits",
+      A = {"<cmd>lua require('plugins.telescope').my_git_commits()<CR>", "commits (Telescope)"},
+      a = {"<cmd>LazyGitFilter<CR>", "commits"},
+      C = {"<cmd>lua require('plugins.telescope').my_git_bcommits()<CR>", "buffer commits (Telescope)"},
+      c = {"<cmd>LazyGitFilterCurrentFile<CR>", "buffer commits"},
     },
     m = { 'blame line' },
     s = { '<cmd>Telescope git_status<CR>',                           'status' },
+    w = {
+      name = "Worktree",
+      w = "worktrees",
+      c = "create worktree",
+    }
   },
 
   p = {
     name = "Project",
     f = { 'file' },
     w = { 'word' },
-    l = { "<cmd>lua require'telescope'.extensions.repo.list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/', '/%timeshift/', '/usr/', '/srv/', '/%.oh%-my%-zsh'}}<CR>", 'list' },
+    l = { "<cmd>lua require'telescope'.extensions.repo.cached_list{file_ignore_patterns={'/%.cache/', '/%.cargo/', '/%.local/', '/%timeshift/', '/usr/', '/srv/', '/%.oh%-my%-zsh', '/Library/', '/%.cocoapods/'}}<CR>", 'list' },
     r = { 'refactor' },
     s = { "<cmd>SessionManager save_current_session<CR>",            'save session' },
     t = { "<cmd>TodoTrouble<CR>",                                    'todo' },
@@ -195,11 +205,11 @@ local normal_mode_mappings = {
 
   s = {
     name = "Search",
-    c = { '<cmd>Telescope colorscheme<CR>',                          'color schemes' },
-    d = { '<cmd>lua require("plugins.telescope").edit_neovim()<CR>', 'dotfiles' },
-    h = { '<cmd>Telescope oldfiles<CR>',                             'file history' },
-    H = { '<cmd>Telescope command_history<CR>',                      'command history' },
-    s = { '<cmd>Telescope search_history<CR>',                       'search history' },
+    c = { '<cmd>Telescope colorscheme<CR>',                              'color schemes' },
+    d = { '<cmd>lua require("plugins.telescope").edit_neovim()<CR>',     'dotfiles' },
+    h = { '<cmd>Telescope oldfiles hidden=true<CR>',                     'file history' },
+    H = { '<cmd>lua require("plugins.telescope").command_history()<CR>', 'command history' },
+    s = { '<cmd>Telescope search_history theme=dropdown<CR>',            'search history' },
   },
 
   t = {
@@ -299,7 +309,7 @@ local function attach_npm(bufnr)
       u = { '<cmd>lua require("package-info").update()<CR>',         'update package'},
     }
   }, {
-    buffer = bufnr ,
+    buffer = bufnr,
     mode = "n", -- NORMAL mode
     prefix = "<leader>",
     silent = true, -- use `silent` when creating keymaps
@@ -308,10 +318,48 @@ local function attach_npm(bufnr)
   })
 end
 
-local function attach_zen()
+local function attach_zen(bufnr)
   wk.register({
     ["z"] = { '<cmd>ZenMode<CR>',               'zen' },
   }, {
+    buffer = bufnr,
+    mode = "n", -- NORMAL mode
+    prefix = "<leader>",
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = false, -- use `nowait` when creating keymaps
+  })
+end
+
+local function attach_jest(bufnr)
+  wk.register({
+    j = {
+      name = "Jest",
+      f = { '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', 'run current file' },
+      i = { '<cmd>lua require("neotest").summary.toggle()<CR>', 'toggle info panel' },
+      j = { '<cmd>lua require("neotest").run.run()<CR>', 'run nearest test' },
+      l = { '<cmd>lua require("neotest").run.run_last()<CR>', 'run last test' },
+      o = { '<cmd>lua require("neotest").output.open({ enter = true })<CR>', 'open test output'},
+      s = { '<cmd>lua require("neotest").run.stop()<CR>', 'stop' },
+    }
+  }, {
+    buffer = bufnr,
+    mode = "n", -- NORMAL mode
+    prefix = "<leader>",
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = false, -- use `nowait` when creating keymaps
+  })
+end
+
+local function attach_spectre(bufnr)
+  wk.register({
+    ["R"] = { '[SPECTRE] Replace all'},
+    ["o"] = { '[SPECTRE] Show options'},
+    ["q"] = { '[SPECTRE] Send all to quicklist'},
+    ["v"] = { '[SPECTRE] Change view mode'},
+  }, {
+    buffer = bufnr,
     mode = "n", -- NORMAL mode
     prefix = "<leader>",
     silent = true, -- use `silent` when creating keymaps
@@ -324,5 +372,7 @@ return {
   attach_markdown = attach_markdown,
   attach_typescript = attach_typescript,
   attach_npm = attach_npm,
-  attach_zen = attach_zen
+  attach_zen = attach_zen,
+  attach_jest = attach_jest,
+  attach_spectre = attach_spectre,
 }

@@ -7,6 +7,10 @@ require('cinnamon').setup {
   scroll_limit = 150, -- Max number of lines moved before scrolling is skipped.
 }
 
+-- ╭──────────────────────────────────────────────────────────╮
+-- │ Keymappings                                              │
+-- ╰──────────────────────────────────────────────────────────╯
+
 -- Half-window movements:
 vim.keymap.set({ 'n', 'x', 'i' }, '<C-u>', "<Cmd>lua Scroll('<C-u>')<CR>")
 vim.keymap.set({ 'n', 'x', 'i' }, '<C-d>', "<Cmd>lua Scroll('<C-d>')<CR>")
@@ -26,10 +30,6 @@ vim.keymap.set('n', '*', "<Cmd>lua Scroll('*')<CR>")
 vim.keymap.set('n', '#', "<Cmd>lua Scroll('#')<CR>")
 vim.keymap.set('n', 'g*', "<Cmd>lua Scroll('g*')<CR>")
 vim.keymap.set('n', 'g#', "<Cmd>lua Scroll('g#')<CR>")
-
--- Previous/next cursor location:
-vim.keymap.set('n', '<C-o>', "<Cmd>lua Scroll('<C-o>')<CR>")
-vim.keymap.set('n', '<C-i>', "<Cmd>lua Scroll('1<C-i>')<CR>")
 
 -- Window scrolling:
 vim.keymap.set('n', 'zz', "<Cmd>lua Scroll('zz', 0, 1)<CR>")
