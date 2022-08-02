@@ -1,5 +1,6 @@
 -- Setup installer & lsp configs
 local typescript_ok, typescript = pcall(require, 'typescript')
+local null_ls_ok, null_ls = pcall(require, 'null-ls')
 local mason_ok, mason = pcall(require, 'mason')
 local mason_lsp_ok, mason_lsp = pcall(require, 'mason-lspconfig')
 
