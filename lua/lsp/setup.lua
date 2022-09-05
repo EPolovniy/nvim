@@ -3,6 +3,7 @@ local typescript_ok, typescript = pcall(require, 'typescript')
 local null_ls_ok, null_ls = pcall(require, 'null-ls')
 local mason_ok, mason = pcall(require, 'mason')
 local mason_lsp_ok, mason_lsp = pcall(require, 'mason-lspconfig')
+local ufo_config = require('plugins.nvim-ufo')
 
 if not mason_ok or not mason_lsp_ok then
   return
@@ -19,7 +20,7 @@ mason_lsp.setup {
   -- A list of servers to automatically install if they're not already installed
   ensure_installed = { "bash-language-server", "css-lsp", "eslint-lsp", "graphql-language-service-cli", "html-lsp",
     "json-lsp", "lua-language-server", "tailwindcss-language-server", "typescript-language-server",
-    "vetur-vls", "vue-language-server", "chrome-debug-adapter", "node-debug2-adapter" },
+    "vetur-vls", "vue-language-server", "chrome-debug-adapter", "node-debug2-adapter", "prisma-language-server" },
 
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -50,6 +51,11 @@ if cmp_nvim_lsp_ok then
   capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true
+}
+
 -- Order matters
 
 -- Enabled null_ls
@@ -69,19 +75,25 @@ if typescript_ok then
     -- LSP Config options
     server = {
       capabilities = require('lsp.servers.tsserver').capabilities,
-      handlers = handlers,
+      handlers = require('lsp.servers.tsserver').handlers,
       on_attach = require('lsp.servers.tsserver').on_attach,
     }
   })
 end
 
 lspconfig.tailwindcss.setup {
-  capabilities = require('lsp.servers.tsserver').capabilities,
+  capabilities = require('lsp.servers.tailwindcss').capabilities,
   filetypes = require('lsp.servers.tailwindcss').filetypes,
   handlers = handlers,
   init_options = require('lsp.servers.tailwindcss').init_options,
   on_attach = require('lsp.servers.tailwindcss').on_attach,
   settings = require('lsp.servers.tailwindcss').settings,
+}
+
+lspconfig.cssls.setup {
+  capabilities = capabilities,
+  handlers = handlers,
+  on_attach = require('lsp.servers.cssls').on_attach,
 }
 
 lspconfig.eslint.setup {
@@ -99,6 +111,7 @@ lspconfig.jsonls.setup {
 }
 
 lspconfig.sumneko_lua.setup {
+  capabilities = capabilities,
   handlers = handlers,
   on_attach = on_attach,
   settings = require('lsp.servers.sumneko_lua').settings,
@@ -112,10 +125,15 @@ lspconfig.vuels.setup {
 }
 
 
-for _, server in ipairs { "bashls", "cssls", "graphql", "html", "volar" } do
+for _, server in ipairs { "bashls", "graphql", "html", "volar", "prismals" } do
   lspconfig[server].setup {
     on_attach = on_attach,
     capabilities = capabilities,
     handlers = handlers,
   }
 end
+
+require('ufo').setup({
+  fold_virt_text_handler = ufo_config.handler,
+  close_fold_kinds = { "imports" }
+})

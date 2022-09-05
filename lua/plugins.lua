@@ -28,7 +28,7 @@ return require('packer').startup({
     use { 'nvim-treesitter/nvim-treesitter', config = "require('plugins.treesitter')" }
     use { 'nvim-treesitter/nvim-treesitter-textobjects', after = { 'nvim-treesitter' } }
     use { 'RRethy/nvim-treesitter-textsubjects', after = { 'nvim-treesitter' } }
-    use { 'm-demare/hlargs.nvim', config = function() require('hlargs').setup() end }
+    use { 'm-demare/hlargs.nvim', config = function() require('hlargs').setup({ color = "#F7768E" }) end }
 
     -- Navigating (Telescope/Tree/Refactor)
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
@@ -77,6 +77,7 @@ return require('packer').startup({
     use { 'nvim-lua/popup.nvim' }
     use { 'ChristianChiarulli/nvim-gps', branch = 'text_hl', config = "require('plugins.gps')", after = 'nvim-treesitter' }
     use { 'jose-elias-alvarez/typescript.nvim' }
+    use { 'axelvc/template-string.nvim', config = function() require('template-string').setup() end }
 
     -- General
     use { 'AndrewRadev/switch.vim' }
@@ -87,15 +88,15 @@ return require('packer').startup({
     use { 'tpope/vim-repeat' }
     use { 'tpope/vim-speeddating' }
     use { 'dhruvasagar/vim-table-mode' }
-    use { 'mg979/vim-visual-multi' }
+    use { 'mg979/vim-visual-multi', config = function() vim.g.VM_leader = ";" end }
     use { 'junegunn/vim-easy-align' }
     use { 'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter' }
     use { 'nacro90/numb.nvim', config = "require('plugins.numb')" }
-    use { 'folke/todo-comments.nvim', config = "require('plugins.todo-comments')" }
+    use { 'B4mbus/todo-comments.nvim', config = "require('plugins.todo-comments')" }
     use { 'folke/zen-mode.nvim', config = "require('plugins.zen')", disable = not EcoVim.plugins.zen.enabled }
     use { 'folke/twilight.nvim', config = function() require("twilight").setup {} end,
       disable = not EcoVim.plugins.zen.enabled }
-    use { 'ggandor/lightspeed.nvim' }
+    use { 'ggandor/lightspeed.nvim', config = "require('plugins.lightspeed')" }
     use { 'folke/which-key.nvim', config = "require('plugins.which-key')", event = "BufWinEnter" }
     use { 'ecosse3/galaxyline.nvim', after = 'nvim-gps', config = "require('plugins.galaxyline')", event = "BufWinEnter" }
     use { 'romgrk/barbar.nvim', branch = 'feat/wipeout-cmds', requires = { 'kyazdani42/nvim-web-devicons' },
@@ -110,6 +111,7 @@ return require('packer').startup({
     use { 'Shatur/neovim-session-manager', config = "require('plugins.session-manager')" }
     use { 'kylechui/nvim-surround', config = function() require("nvim-surround").setup({}) end }
     use { 'sunjon/shade.nvim', config = function() require("shade").setup(); require("shade").toggle(); end }
+    use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async', config = "require('plugins.nvim-ufo')" }
 
     -- Snippets & Language & Syntax
     use { 'windwp/nvim-autopairs', after = { 'nvim-treesitter', 'nvim-cmp' }, config = "require('plugins.autopairs')" }
@@ -124,7 +126,7 @@ return require('packer').startup({
       config = "require('plugins.git.signs')",
       event = "BufRead"
     }
-    use { 'sindrets/diffview.nvim', config = "require('plugins.git.diffview')" }
+    -- use { 'sindrets/diffview.nvim', config = "require('plugins.git.diffview')" }
     use { 'akinsho/git-conflict.nvim', config = "require('plugins.git.conflict')" }
     use { 'ThePrimeagen/git-worktree.nvim', config = "require('plugins.git.worktree')" }
     use { 'kdheepak/lazygit.nvim' }

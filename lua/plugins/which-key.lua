@@ -102,7 +102,7 @@ local normal_mode_mappings = {
   ["/"] = {
     name = "Ecovim",
     ["/"] = { '<cmd>Alpha<CR>',                                 'open dashboard' },
-    c = { '<cmd>e $MYVIMRC<CR>',                                    'open config' },
+    c = { '<cmd>e $MYVIMRC<CR>',                                'open config' },
     i = { '<cmd>PackerInstall<CR>',                             'install plugins' },
     u = { '<cmd>PackerSync<CR>',                                'update plugins' },
     s = {
@@ -111,12 +111,13 @@ local normal_mode_mappings = {
       r = { '<cmd>SessionManager delete_session<CR>',           'remove session' },
       d = { '<cmd>SessionManager load_current_dir_session<CR>', 'load current dir session' },
       l = { '<cmd>SessionManager load_last_session<CR>',        'load last session' },
-      s = { '<cmd>SessionManager save_session<CR>',             'save session' },
+      s = { '<cmd>SessionManager save_current_session<CR>',     'save session' },
     },
   },
 
   a = {
     name = "Actions",
+    c = { 'comment box' },
     n = { '<cmd>set nonumber!<CR>',                      'line numbers' },
     r = { '<cmd>set norelativenumber!<CR>',              'relative number' },
     t = { '<cmd>ToggleTerm direction=float<CR>',         'terminal float' },
@@ -162,7 +163,7 @@ local normal_mode_mappings = {
     name = "Git",
     a = { '<cmd>!git add %:p<CR>',                                 'add current' },
     A = { '<cmd>!git add .<CR>',                                   'add all' },
-    b = { '<cmd>lua require("blame").open()<CR>',                  'blame' },
+    b = { '<cmd>lua require("internal.blame").open()<CR>',                  'blame' },
     B = { '<cmd>Telescope git_branches<CR>',                       'branches' },
     d = { '<cmd>lua require("plugins.git.diffview").toggle()<CR>', 'diff file' },
     g = { '<cmd>LazyGit<CR>',                                      'lazygit' },
