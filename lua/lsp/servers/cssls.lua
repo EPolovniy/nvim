@@ -1,17 +1,6 @@
 local M = {}
 
-M.settings = {
-  css = {
-    lint = {
-      unknownAtRules = 'ignore',
-    },
-  },
-  scss = {
-    lint = {
-      unknownAtRules = 'ignore',
-    },
-  },
-}
+M.settings = {}
 
 M.on_attach = function(client, bufnr)
   client.server_capabilities.documentFormattingProvider = true
